@@ -24,14 +24,19 @@ class SnackForm extends Component {
         })
     }
 
+    submitSnacks = (event) => {
+        event.preventDefault();
+        this.props.dispatch({type: 'ADD_SNACK', payload: this.state.newSnack});
+    }
+
 
     render() {       
         return (
-            <div>
+            <form onSubmit={this.submitSnacks}>
                 <input onChange={this.handleSnackChangeFor('snackType')} type="text" placeholder="What's the snack?" />
                 <input onChange={this.handleSnackChangeFor('snackBringer')} type="text" placeholder="Who's bringing it?" />
-                <button onClick={() => this.props.dispatch({type: 'ADD_SNACK', payload: this.state.newSnack})}>Add your snack to the table!</button>
-            </div>
+                <input type="submit" value="Add a snack to the table!" />
+            </form>
         )
     }
 }
