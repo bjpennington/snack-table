@@ -18,13 +18,27 @@ class App extends Component {
   }
 
   render() {
+
+    let snacksList = this.props.snacks.map((snack, index) => {
+      return (<li key={index}>{snack}</li>)
+    })
+
     return (
       <div className="App">
         <input onChange={this.handleSnackChange} type="text" />
         <button onClick={() => this.props.dispatch({type: 'ADD_SNACK', payload: this.state.newSnack})}>Add your snack to the table!</button>
+        <ul>
+          {snacksList}
+        </ul>
       </div>
     );
   }
 }
 
-export default connect()(App);
+const mapReduxStateToProps = (reduxState) => {
+  return {
+    snacks: reduxState.addSnacks
+  }
+}
+
+export default connect(mapReduxStateToProps)(App);
